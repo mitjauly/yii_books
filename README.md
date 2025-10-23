@@ -1,6 +1,6 @@
 # Yii2 Book Catalog
 
-Book catalog application built with Yii2 + MySQL.
+Book catalog application built with Yii2 + MaridaDB.
 
 ## Task Requirements
 
@@ -19,22 +19,6 @@ Books can have multiple authors.
 **Report:**
 
 TOP 10 authors who published the most books in a given year (accessible to all users).
-
-**Additional Requirements:**
-
-- Web application (not API)
-- Authentication required
-- Cover photo - any format, file or URL storage
-- Report as separate page, accessible to all
-- Subscription to specific author (not per book)
-- Guest - unauthenticated user (subscription via phone number)
-- No admin functionality for managing subscriptions
-- CRUD applies to books and authors
-- Author is not a user (separate entity)
-- No unsubscribe functionality required
-- Migrations instead of database dump
-- PHP 8+, MySQL/MariaDB
-- Can use basic or advanced Yii2 template
 
 ## Screenshots
 
