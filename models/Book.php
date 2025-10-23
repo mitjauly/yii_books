@@ -22,6 +22,11 @@ use Yii;
 class Book extends \yii\db\ActiveRecord
 {
     /**
+     * Event triggered when a new book is added
+     */
+    const EVENT_BOOK_ADDED = 'bookAdded';
+
+    /**
      * @var \yii\web\UploadedFile
      */
     public $photoFile;
@@ -157,6 +162,16 @@ class Book extends \yii\db\ActiveRecord
                 $bookAuthor->author_id = $authorId;
                 $bookAuthor->save();
             }
+        }
+
+        // Trigger BOOK_ADDED event for new books only
+        if ($insert && !empty($this->authorIds)) {
+            \Yii::info("Triggering BOOK_ADDED event for book '{$this->title}' with authors: " . implode(', ', $this->authorIds), 'subscription');
+
+            $event = new BookAddedEvent();
+            $event->book = $this;
+            $event->authorIds = $this->authorIds;
+            $this->trigger(self::EVENT_BOOK_ADDED, $event);
         }
     }
 

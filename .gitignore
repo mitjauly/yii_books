@@ -36,6 +36,9 @@ tests/_support/_generated
 /runtime
 /web/assets
 
+# uploaded files
+/web/uploads
+
 # database config (sensitive)
 # Uncomment if you want to ignore local db config
 # /config/db.php

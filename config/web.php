@@ -39,6 +39,12 @@ $config = [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['info'],
+                    'categories' => ['subscription'],
+                    'logFile' => '@runtime/logs/subscription.log',
+                ],
             ],
         ],
         'db' => $db,
@@ -68,5 +74,12 @@ if (YII_ENV_DEV) {
         'allowedIPs' => ['*'],
     ];
 }
+
+// Register event listeners
+yii\base\Event::on(
+    'app\models\Book',
+    'bookAdded',
+    ['app\models\Subscription', 'onBookAdded']
+);
 
 return $config;

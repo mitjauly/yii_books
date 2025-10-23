@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Author;
 use app\models\AuthorSearch;
+use app\models\Subscription;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,6 +37,7 @@ class AuthorController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                        'subscribe' => ['POST'],
                     ],
                 ],
             ]
@@ -139,6 +141,33 @@ class AuthorController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Subscribe to an author.
+     * @return \yii\web\Response
+     */
+    public function actionSubscribe()
+    {
+        if (!$this->request->isPost) {
+            throw new NotFoundHttpException('Invalid request method');
+        }
+
+        $authorId = $this->request->post('author_id');
+        $phone = $this->request->post('phone');
+
+        $subscription = new Subscription();
+        $subscription->author_id = $authorId;
+        $subscription->phone = $phone;
+
+        if ($subscription->save()) {
+            \Yii::$app->session->setFlash('success', 'Successfully subscribed!');
+        } else {
+            $errors = $subscription->getFirstErrors();
+            \Yii::$app->session->setFlash('error', reset($errors));
+        }
 
         return $this->redirect(['index']);
     }
