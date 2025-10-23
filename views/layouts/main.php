@@ -36,18 +36,33 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'brandUrl' => Yii::$app->homeUrl,
         'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
     ]);
+
+    // Build left nav items
+    $leftNavItems = [
+        ['label' => 'Books', 'url' => ['/book/index']],
+        ['label' => 'Authors', 'url' => ['/author/index']],
+    ];
+    if (!Yii::$app->user->isGuest) {
+        $leftNavItems[] = ['label' => 'Manage Books', 'url' => ['/book/manage']];
+        $leftNavItems[] = ['label' => 'Manage Authors', 'url' => ['/author/manage']];
+    }
+
+    // Left side navigation
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
+        'items' => $leftNavItems
+    ]);
+
+    // Right side navigation
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav ms-auto'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Signup', 'url' => ['/site/signup']]
-            ) : (
-                ['label' => 'Logout (' . Yii::$app->user->identity->username . ')', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']]
-            ),
+            Yii::$app->user->isGuest
+                ? ['label' => 'Signup', 'url' => ['/site/signup']]
+                : ['label' => 'Logout (' . Yii::$app->user->identity->username . ')', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
             Yii::$app->user->isGuest
                 ? ['label' => 'Login', 'url' => ['/site/login']]
-                : ''
+                : ['label' => '', 'visible' => false]
         ]
     ]);
     NavBar::end();

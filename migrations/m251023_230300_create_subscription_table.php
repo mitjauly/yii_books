@@ -16,8 +16,8 @@ class m251023_230300_create_subscription_table extends Migration
             'id' => $this->primaryKey(),
             'author_id' => $this->integer()->notNull(),
             'phone' => $this->string(20)->notNull(),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->dateTime()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->dateTime()->notNull()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
 
         // Foreign key to author

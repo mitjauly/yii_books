@@ -19,8 +19,8 @@ class m251023_230100_create_book_table extends Migration
             'description' => $this->text(),
             'isbn' => $this->string(20)->unique(),
             'photo' => $this->string(255),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->dateTime()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->dateTime()->notNull()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
 
         // Index for searching

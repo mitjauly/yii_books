@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\SignupForm;
+use app\models\TopAuthors;
 
 class SiteController extends Controller
 {
@@ -55,13 +56,17 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
+     * Displays homepage with TOP 10 authors report.
      *
      * @return string
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $topAuthors = TopAuthors::getTopAuthorsByYear();
+
+        return $this->render('index', [
+            'topAuthors' => $topAuthors,
+        ]);
     }
 
     /**
