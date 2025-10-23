@@ -35,3 +35,20 @@ TOP 10 authors who published the most books in a given year (accessible to all u
 - Migrations instead of database dump
 - PHP 8+, MySQL/MariaDB
 - Can use basic or advanced Yii2 template
+
+## Screenshots
+
+### Homepage - TOP 10 Authors by Year
+![TOP 10 Authors grouped by year](screens/group.jpeg)
+
+### Books Catalog
+![Books list with search](screens/books.jpeg)
+
+### Author Subscription
+![Subscribe to author for notifications](screens/subscr.jpeg)
+
+### Books Management (Authenticated)
+![Manage books - add/edit/delete](screens/books_manage.jpeg)
+
+### Login Page
+![Authentication required for management](screens/unauthorized.jpeg)
